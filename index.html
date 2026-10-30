@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Safe educational simulation of virus, worm and Trojan behavior.">
+  <title>CyberThreat Simulator | Threat Analysis</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="js/app.js" defer></script>
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#">
+        <span class="brand-icon">⬡</span>
+        <span>CYBER<span class="accent">THREAT</span><small>SIMULATION LAB</small></span>
+      </a>
+
+      <div class="side-label">WORKSPACE</div>
+      <button class="nav-item active" data-view="dashboard"><span>▦</span> Dashboard</button>
+      <button class="nav-item" data-view="analysis"><span>◈</span> Threat Analysis</button>
+      <button class="nav-item" data-view="prevention"><span>✚</span> Prevention Guide</button>
+
+      <div class="side-label module-label">SIMULATION MODULES</div>
+      <button class="module-btn selected" data-threat="virus"><span class="dot virus"></span> Virus Simulator <span>›</span></button>
+      <button class="module-btn" data-threat="worm"><span class="dot worm"></span> Worm Simulator <span>›</span></button>
+      <button class="module-btn" data-threat="trojan"><span class="dot trojan"></span> Trojan Simulator <span>›</span></button>
+
+      <div class="sidebar-bottom">
+        <div class="safe-card">
+          <div class="safe-icon">✓</div>
+          <strong>Sandbox Protected</strong>
+          <p>Virtual events only. No real files or networks are touched.</p>
+          <span class="safe-status"><i></i> SAFE MODE ACTIVE</span>
+        </div>
+        <div class="user-mini"><div class="avatar">CT</div><div><strong>Cyber Lab</strong><small>Student Edition</small></div><span class="online-dot"></span></div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="mobile-brand">⬡ CYBER<span class="accent">THREAT</span></div>
+        <div class="breadcrumb">Workspace <span>/</span> <strong id="breadcrumb-current">Dashboard</strong></div>
+        <div class="top-actions"><span class="network-status"><i></i> NETWORK DISABLED</span><button class="icon-btn" id="help-btn" aria-label="About">?</button></div>
+      </header>
+
+      <section class="page active" id="dashboard-view">
+        <div class="page-heading">
+          <div><div class="eyebrow">SECURITY OPERATIONS CENTER</div><h1>Threat Monitoring</h1><p>Explore how common malware categories behave in a controlled simulation.</p></div>
+          <div class="date-chip"><span>◷</span> <span id="current-date"></span></div>
+        </div>
+
+        <div class="status-banner"><div class="pulse-ring">✓</div><div><strong>Simulation environment ready</strong><p>All activity below is generated from fictional, in-browser data.</p></div><span class="status-pill">SYSTEM SECURE</span></div>
+
+        <div class="stats-grid">
+          <article class="stat-card"><div class="stat-top"><span>TOTAL EVENTS</span><span class="stat-icon blue">▤</span></div><strong id="total-count">0</strong><small>Across all simulations</small></article>
+          <article class="stat-card"><div class="stat-top"><span>VIRUS EVENTS</span><span class="stat-icon red">✳</span></div><strong id="virus-count">0</strong><small>Virtual file events</small></article>
+          <article class="stat-card"><div class="stat-top"><span>WORM EVENTS</span><span class="stat-icon yellow">⌘</span></div><strong id="worm-count">0</strong><small>Virtual node events</small></article>
+          <article class="stat-card"><div class="stat-top"><span>TROJAN EVENTS</span><span class="stat-icon green">♢</span></div><strong id="trojan-count">0</strong><small>Behavior analysis events</small></article>
+        </div>
+
+        <div class="content-grid">
+          <section class="panel simulator-panel">
+            <div class="panel-heading"><div><div class="eyebrow">INTERACTIVE LAB</div><h2 id="module-title">Virus Simulator</h2></div><span class="module-tag virus-tag" id="module-tag">FILE INFECTION</span></div>
+            <p class="module-description" id="module-description">Observe a fictional virus event moving between virtual file records. No real files are opened or changed.</p>
+            <div class="simulation-stage">
+              <div class="stage-top"><span>SIMULATION VISUALIZATION</span><span class="stage-state" id="stage-state"><i></i> IDLE</span></div>
+              <div class="visual-area" id="visual-area">
+                <div class="visual-node source-node"><span class="node-symbol" id="source-symbol">▧</span><strong id="source-label">Virtual File A</strong><small>SIMULATED SOURCE</small></div>
+                <div class="flow-line"><span class="flow-dot"></span><span class="flow-dot second"></span></div>
+                <div class="visual-node target-node"><span class="node-symbol" id="target-symbol">▧</span><strong id="target-label">Virtual File B</strong><small>SIMULATED TARGET</small></div>
+              </div>
+              <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+              <div class="progress-meta"><span id="progress-label">Waiting to start</span><span id="progress-percent">0%</span></div>
+            </div>
+            <div class="control-row"><button class="btn btn-primary" id="start-btn">▶ Start Simulation</button><button class="btn btn-stop" id="stop-btn" disabled>■ Stop</button><button class="btn btn-ghost" id="reset-btn">↻ Reset</button></div>
+            <div class="notice"><span>ⓘ</span><p><strong>Safe simulation:</strong> This lab only updates virtual labels and counters in your browser. It does not access your filesystem or communicate over a network.</p></div>
+          </section>
+
+          <section class="panel log-panel">
+            <div class="panel-heading"><div><div class="eyebrow">REAL-TIME CONSOLE</div><h2>Activity Log</h2></div><button class="text-btn" id="clear-log">Clear logs</button></div>
+            <div class="log-summary"><span><i class="live-dot"></i> LIVE OUTPUT</span><span id="log-count">0 ENTRIES</span></div>
+            <div class="log-list" id="log-list" aria-live="polite"><div class="empty-log"><span>⌁</span><strong>Awaiting simulation</strong><small>Start a module to see activity here.</small></div></div>
+          </section>
+        </div>
+
+        <section class="panel chart-panel">
+          <div class="panel-heading"><div><div class="eyebrow">SESSION OVERVIEW</div><h2>Event Distribution</h2></div><span class="muted-label">CURRENT SESSION</span></div>
+          <div class="chart-wrap"><canvas id="events-chart" aria-label="Event distribution chart"></canvas></div>
+        </section>
+      </section>
+
+      <section class="page" id="analysis-view">
+        <div class="page-heading"><div><div class="eyebrow">LEARN THE DIFFERENCES</div><h1>Threat Analysis</h1><p>Understand the typical behavior, impact and warning signs of each malware category.</p></div></div>
+        <div class="analysis-grid">
+          <article class="panel threat-card"><div class="threat-heading"><span class="threat-emoji virus-bg">✳</span><span class="module-tag virus-tag">VIRUS</span></div><h2>Computer Virus</h2><p>A virus attaches itself to a host file or program. When the infected host is run, the virus may attempt to spread to other files.</p><h3>Typical impact</h3><ul><li>File corruption or modification</li><li>Loss of data availability</li><li>Unexpected system behavior</li></ul><h3>Warning signs</h3><p>Unusual file changes, unexpected errors, or security alerts.</p></article>
+          <article class="panel threat-card"><div class="threat-heading"><span class="threat-emoji worm-bg">⌘</span><span class="module-tag worm-tag">WORM</span></div><h2>Computer Worm</h2><p>A worm is standalone malware that can spread between systems, often by exploiting vulnerabilities or weak security controls.</p><h3>Typical impact</h3><ul><li>High network or system resource use</li><li>Rapid spread across connected devices</li><li>Service disruption</li></ul><h3>Warning signs</h3><p>Unexpected network activity, slow devices, or repeated security alerts.</p></article>
+          <article class="panel threat-card"><div class="threat-heading"><span class="threat-emoji trojan-bg">♢</span><span class="module-tag trojan-tag">TROJAN</span></div><h2>Trojan Horse</h2><p>A Trojan disguises itself as legitimate or useful software to trick a user into installing or running it.</p><h3>Typical impact</h3><ul><li>Unauthorized access or data exposure</li><li>Installation of unwanted software</li><li>Privacy and security compromise</li></ul><h3>Warning signs</h3><p>Untrusted installers, unexpected permissions, or suspicious application behavior.</p></article>
+        </div>
+        <div class="panel comparison-panel"><div class="eyebrow">QUICK COMPARISON</div><h2>How are they different?</h2><div class="table-scroll"><table><thead><tr><th>Characteristic</th><th>Virus</th><th>Worm</th><th>Trojan</th></tr></thead><tbody><tr><td>Needs a host file</td><td>Usually yes</td><td>No</td><td>No</td></tr><tr><td>Self-replicates</td><td>Can</td><td>Yes</td><td>No</td></tr><tr><td>Disguises as legitimate software</td><td>Not defining trait</td><td>Not defining trait</td><td>Yes</td></tr><tr><td>Common spread route</td><td>Infected files</td><td>Connected systems</td><td>User deception</td></tr></tbody></table></div></div>
+      </section>
+
+      <section class="page" id="prevention-view">
+        <div class="page-heading"><div><div class="eyebrow">STAY PROTECTED</div><h1>Prevention Guide</h1><p>Practical security habits help reduce the risk of malware infection.</p></div></div>
+        <div class="prevention-grid">
+          <article class="panel prevention-card"><span>01</span><h2>Keep software updated</h2><p>Install operating system and application security updates promptly to reduce exposure to known vulnerabilities.</p></article>
+          <article class="panel prevention-card"><span>02</span><h2>Use trusted downloads</h2><p>Download software from official sources. Avoid unknown attachments, cracked applications and unexpected installers.</p></article>
+          <article class="panel prevention-card"><span>03</span><h2>Use security protection</h2><p>Keep reputable antivirus or endpoint protection enabled and review its security alerts.</p></article>
+          <article class="panel prevention-card"><span>04</span><h2>Back up important data</h2><p>Maintain regular backups and periodically verify that you can restore your files.</p></article>
+          <article class="panel prevention-card"><span>05</span><h2>Use least privilege</h2><p>Use a standard account for everyday work and grant permissions only when necessary.</p></article>
+          <article class="panel prevention-card"><span>06</span><h2>Be alert to deception</h2><p>Check publishers, permissions and URLs. Be cautious when software asks for unexpected access.</p></article>
+        </div>
+      </section>
+
+      <footer class="footer"><span>CYBERTHREAT SIMULATOR · EDUCATIONAL PROJECT</span><span>SAFE MODE · NO REAL MALWARE</span></footer>
+    </main>
+  </div>
+
+  <div class="modal-backdrop" id="about-modal" hidden>
+    <div class="modal panel"><button class="modal-close" id="close-modal">×</button><div class="eyebrow">ABOUT THIS PROJECT</div><h2>CyberThreat Simulator</h2><p>A browser-based educational project demonstrating simplified Virus, Worm and Trojan behavior with fictional events.</p><p><strong>Safety boundary:</strong> The app does not access, scan, alter or create files; it does not connect to devices or networks; and it does not execute malware or payloads.</p><button class="btn btn-primary" id="modal-ok">Got it</button></div>
+  </div>
+</body>
+</html>
